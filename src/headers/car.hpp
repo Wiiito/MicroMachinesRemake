@@ -1,17 +1,25 @@
 #include <SFML/Graphics.hpp>
+#include <cmath>
 
 class Car {
  protected:
   sf::RectangleShape hitbox;
 
   float velocity = 0.f;
+
+  float xVelocity;
+  float yVelocity;
+
+  float rotation;
+
   float acceleration = 0.05f;
+
   float slowAcceleration = 0.025f;
-  float breakAcceleration = 0.025f;
+  float breakAcceleration = 0.035f;
 
   sf::Clock accelerationClock;
 
-  float maxVelocity = 0.5f;
+  float maxVelocity = 0.25f;
   // int maxAcceleration;
 
  public:
