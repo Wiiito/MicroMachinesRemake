@@ -11,7 +11,10 @@ void Game::initMap() {
   this->mapSprite.setTexture(this->mapTexture);
 }
 
-void Game::update(Engine *gameEngine) { player.update(); }
+void Game::update(Engine *gameEngine) {
+  player.baseCarUpdate(gameEngine);
+  player.update(gameEngine);
+}
 
 void Game::render(sf::RenderWindow *pWindow) {
   pWindow->setView(sf::View(player.getCenterPosition(), sf::Vector2f(pWindow->getSize())));

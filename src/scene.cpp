@@ -8,7 +8,9 @@
  */
 Scene::Scene(std::string name) { this->sceneName = name; }
 
-Scene::Scene(std::string name, std::function<void()> func) { this->instanceFunction = func; }
+Scene::Scene(std::string name, std::function<void()> func) {
+  this->instanceFunction = func;
+}
 
 Scene::~Scene() {}
 
@@ -27,7 +29,9 @@ void Scene::instantiate() { this->instanceFunction(); }
  * @param func Function pointer to be added
  * @returns void
  */
-void Scene::add(std::function<void()> func) { this->functionSet.push_back(func); }
+void Scene::add(std::function<void()> func) {
+  this->functionSet.push_back(func);
+}
 
 /**
  * Runs scene functions
@@ -54,4 +58,6 @@ std::string Scene::getName() { return this->sceneName; }
  * @param func Fuction that will instantiate the object
  * @return void
  */
-void Scene::setInstanceFunction(std::function<void()> func) { this->instanceFunction = func; }
+void Scene::setInstanceFunction(std::function<void()> func) {
+  this->instanceFunction = func;
+}

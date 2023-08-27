@@ -30,8 +30,8 @@ void Engine::initVariables() {
  */
 void Engine::initWindow() {
   this->pVideoMode = new VideoMode(1280, 720);
-  this->pWindow =
-      new RenderWindow(*this->pVideoMode, "Surround Reimagined", Style::Close | Style::Titlebar);
+  this->pWindow = new RenderWindow(*this->pVideoMode, "Surround Reimagined",
+                                   Style::Close | Style::Titlebar);
 }
 
 /**
@@ -42,7 +42,8 @@ void Engine::initWindow() {
  */
 void Engine::poolEvents() {
   while (this->pWindow->pollEvent(this->event)) {
-    if (this->event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+    if (this->event.type == sf::Event::Closed ||
+        sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
       this->pWindow->close();
     }
   }
@@ -55,6 +56,10 @@ void Engine::poolEvents() {
  * @public
  */
 void Engine::updateGame() {
+  // Delta taime calculation
+  this->deltaTime = this->deltaTimeClock.getElapsedTime();
+  this->deltaTimeClock.restart();
+
   this->poolEvents();
   this->pWindow->clear();
   this->currentScene->run();
@@ -78,6 +83,14 @@ bool Engine::getIsWindowOpen() { return this->pWindow->isOpen(); }
  * @public
  */
 RenderWindow* Engine::getWindow() { return this->pWindow; }
+
+/**
+ * Returns time elapsed between last 2 frames
+ *
+ * @returns sf::Time, time between last 2 frames
+ * @public
+ */
+sf::Time Engine::getDeltaTime() { return this->deltaTime; }
 
 // Constructors / Destructors
 

@@ -1,31 +1,38 @@
 #include <SFML/Graphics.hpp>
 #include <cmath>
 
+#include "engine.hpp"
+
 class Car {
  protected:
   sf::RectangleShape hitbox;
+  sf::RectangleShape lWheel;
+  sf::RectangleShape rWheel;
 
   float velocity = 0.f;
+  float angularVelocity = 0.f;
 
   float xVelocity;
   float yVelocity;
 
   float rotation;
+  float wheelRotation;
 
-  float acceleration = 0.05f;
+  const float turnVelocity = 45.f;
+  const float acceleration = 100.f;
 
-  float slowAcceleration = 0.025f;
-  float breakAcceleration = 0.035f;
+  float radius;
 
-  sf::Clock accelerationClock;
+  const float slowAcceleration = 0.25f;
+  const float breakAcceleration = 0.35f;
 
-  float maxVelocity = 0.25f;
-  // int maxAcceleration;
+  const float maxVelocity = 500.f;
 
  public:
   Car();
   ~Car();
 
+  void baseCarUpdate(Engine *pEngine);
   void render(sf::RenderWindow *pWindow);
 
   sf::Vector2f getPosition();

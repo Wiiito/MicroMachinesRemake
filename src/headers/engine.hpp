@@ -21,6 +21,9 @@ class Engine {
   Scene* currentScene;
   std::map<std::string, Scene*> scenesMap;
 
+  sf::Clock deltaTimeClock;
+  sf::Time deltaTime;
+
   // Functions
 
   void initWindow();
@@ -35,7 +38,6 @@ class Engine {
   // Functions
 
   void initVariables();
-
   void updateGame();
 
   // Scene Functions
@@ -47,4 +49,5 @@ class Engine {
 
   bool getIsWindowOpen();
   sf::RenderWindow* getWindow();
+  sf::Time getDeltaTime();
 };
