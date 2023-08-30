@@ -1,3 +1,4 @@
 /SFML
 *.dll
 *.exe
+/.vscode

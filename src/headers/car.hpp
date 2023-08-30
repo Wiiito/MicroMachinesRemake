@@ -33,6 +33,12 @@ class Car {
   float maxVelocity = originalMaxVelocity;
 
  public:
+  // Race things - They are public cuz every car has one n' it's kinda pointless
+  // making them private
+
+  int currentLap = 0;
+  int currentCheckpoint = 0;
+
   Car();
   ~Car();
 
