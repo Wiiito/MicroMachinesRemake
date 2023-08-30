@@ -50,12 +50,16 @@ void Car::baseCarUpdate(Engine *pEngine) {
   this->rWheel.setRotation(this->rotation + this->wheelRotation);
   this->lWheel.setRotation(this->rotation + this->wheelRotation);
 
+  this->hitbox.setRotation(rotation);
+
   // Position
   this->hitbox.move(this->velocity * pEngine->getDeltaTime().asSeconds() *
                         cos(rotation * M_PI / 180),
                     this->velocity * pEngine->getDeltaTime().asSeconds() *
                         sin(rotation * M_PI / 180));
 }
+
+sf::RectangleShape Car::getRect() { return this->hitbox; }
 
 void Car::render(sf::RenderWindow *pWindow) {
   // Drawing

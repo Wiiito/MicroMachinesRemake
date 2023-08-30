@@ -1,14 +1,13 @@
 #include <SFML/Graphics.hpp>
 
 #include "../headers/engine.hpp"
+#include "../headers/map.hpp"
 #include "../headers/player.hpp"
 
 class Game {
  private:
   Player player;
-
-  sf::Texture mapTexture;
-  sf::Sprite mapSprite;
+  Map map;
 
   void initMap();
 

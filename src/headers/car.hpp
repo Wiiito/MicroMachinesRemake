@@ -23,8 +23,8 @@ class Car {
 
   float radius;
 
-  const float slowAcceleration = 0.25f;
-  const float breakAcceleration = 0.35f;
+  const float slowAcceleration = 50.f;
+  const float breakAcceleration = 35.f;
 
   const float maxVelocity = 500.f;
 
@@ -34,6 +34,8 @@ class Car {
 
   void baseCarUpdate(Engine *pEngine);
   void render(sf::RenderWindow *pWindow);
+
+  sf::RectangleShape getRect();
 
   sf::Vector2f getPosition();
   sf::Vector2f getCenterPosition();

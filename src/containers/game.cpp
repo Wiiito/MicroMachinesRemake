@@ -7,8 +7,10 @@ Game::Game() { this->initMap(); }
 Game::~Game() {}
 
 void Game::initMap() {
-  this->mapTexture.loadFromFile("src/assets/imgs/map.jpg");
-  this->mapSprite.setTexture(this->mapTexture);
+  this->map.setTileSet("assets/imgs/map.png");
+  this->map.setMap("assets/map.txt");
+  this->map.setOffestSize(32);
+  this->map.updateMap();
 }
 
 void Game::update(Engine *gameEngine) {
@@ -17,7 +19,9 @@ void Game::update(Engine *gameEngine) {
 }
 
 void Game::render(sf::RenderWindow *pWindow) {
-  pWindow->setView(sf::View(player.getCenterPosition(), sf::Vector2f(pWindow->getSize())));
-  pWindow->draw(this->mapSprite);
+  pWindow->setView(
+      sf::View(player.getCenterPosition(), sf::Vector2f(pWindow->getSize())));
+  map.render(pWindow);
   player.render(pWindow);
+  this->map.intersectsCollision(player.getRect(), pWindow);
 }

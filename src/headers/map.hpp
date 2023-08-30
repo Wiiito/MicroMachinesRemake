@@ -1,15 +1,35 @@
 #include <SFML/Graphics.hpp>
+#include <cmath>
+#include <fstream>
 #include <string>
+#include <vector>
 
 class Map {
  private:
   sf::Texture tileTexture;
-  sf::Image map;
+  std::ifstream mapFile;
+
+  sf::RectangleShape acutalSquare;
+
+  int offsetSize;
+
+  std::vector<std::vector<int>> map;
 
  public:
   Map();
+  Map(std::string mapPath, std::string tileSetPath);
+
   ~Map();
 
   void setTileSet(std::string path);
   void setMap(std::string path);
+  void setOffestSize(int size);
+
+  bool doesCollide(sf::Vector2f pos);
+  bool doesCollide(int x, int y);
+
+  bool intersectsCollision(sf::RectangleShape rect, sf::RenderWindow *pWindow);
+
+  void updateMap();
+  void render(sf::RenderWindow *pWindow);
 };
