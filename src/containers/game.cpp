@@ -16,6 +16,12 @@ void Game::initMap() {
 void Game::update(Engine *gameEngine) {
   player.baseCarUpdate(gameEngine);
   player.update(gameEngine);
+  player.returnToNaturalState();
+
+  if (map.intersects(player.getRect())) {
+    // std::cout << "Barbeiro\n";
+    player.stop(gameEngine);
+  }
 }
 
 void Game::render(sf::RenderWindow *pWindow) {
@@ -23,5 +29,4 @@ void Game::render(sf::RenderWindow *pWindow) {
       sf::View(player.getCenterPosition(), sf::Vector2f(pWindow->getSize())));
   map.render(pWindow);
   player.render(pWindow);
-  this->map.intersectsCollision(player.getRect(), pWindow);
 }

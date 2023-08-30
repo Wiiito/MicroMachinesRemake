@@ -1,3 +1,5 @@
+#pragma once
+
 #include <SFML/Graphics.hpp>
 #include <cmath>
 #include <fstream>
@@ -28,7 +30,7 @@ class Map {
   bool doesCollide(sf::Vector2f pos);
   bool doesCollide(int x, int y);
 
-  bool intersectsCollision(sf::RectangleShape rect, sf::RenderWindow *pWindow);
+  bool intersects(sf::RectangleShape rect);
 
   void updateMap();
   void render(sf::RenderWindow *pWindow);

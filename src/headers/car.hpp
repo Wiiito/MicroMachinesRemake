@@ -1,7 +1,10 @@
+#pragma once
+
 #include <SFML/Graphics.hpp>
 #include <cmath>
 
 #include "engine.hpp"
+#include "map.hpp"
 
 class Car {
  protected:
@@ -26,7 +29,8 @@ class Car {
   const float slowAcceleration = 50.f;
   const float breakAcceleration = 35.f;
 
-  const float maxVelocity = 500.f;
+  const float originalMaxVelocity = 500.f;
+  float maxVelocity = originalMaxVelocity;
 
  public:
   Car();
@@ -34,6 +38,9 @@ class Car {
 
   void baseCarUpdate(Engine *pEngine);
   void render(sf::RenderWindow *pWindow);
+
+  void stop(Engine *pEngine);
+  void returnToNaturalState();
 
   sf::RectangleShape getRect();
 

@@ -10,14 +10,17 @@ Map::Map(std::string mapPath, std::string tileSetPath) {
 
 Map::~Map() {}
 
+#include <iostream>
+
 void Map::updateMap() {
   std::string string;
+  int counter = 0;
   while (getline(this->mapFile, string)) {
-    std::vector<int> line;
-    for (unsigned int i = 0; i < string.size(); i++) {
-      line.push_back(int(string.at(i)) - 48);
+    this->map.resize(counter + 1);
+    for (char& c : string) {
+      map[counter].push_back((int)c - 48);
     }
-    this->map.push_back(line);
+    counter++;
   }
   this->mapFile.close();
 }
@@ -33,20 +36,27 @@ void Map::setOffestSize(int size) {
   this->acutalSquare.setSize(sf::Vector2f(size, size));
 }
 
+#include <iostream>
 // ---- Collision detection ----
 bool Map::doesCollide(sf::Vector2f pos) {
   return this->doesCollide((int)pos.x, (int)pos.y);
 }
 
 bool Map::doesCollide(int x, int y) {
-  if (this->map[x / this->offsetSize][y / this->offsetSize]) {
+  // std::cout << this->map[y / this->offsetSize][x / this->offsetSize];
+  if (y / this->offsetSize > map.size() || y < 0 ||
+      x / this->offsetSize > map[y / this->offsetSize].size() || x < 0) {
+    return true;
+  }
+
+  if (this->map[y / this->offsetSize][x / this->offsetSize]) {
     return true;
   }
   return false;
 }
 
-bool Map::intersectsCollision(sf::RectangleShape rect,
-                              sf::RenderWindow *pWindow) {
+bool Map::intersects(sf::RectangleShape rect) {
+  // Essa brincadeira td aq pq a função da lib é inutil :)
   float angle = rect.getRotation() * M_PI / 180;
 
   // S - Small
@@ -73,24 +83,15 @@ bool Map::intersectsCollision(sf::RectangleShape rect,
       rect.getPosition().x + (bWidth * cos(angle)) + (sHeight * sin(angle)),
       rect.getPosition().y + (bWidth * sin(angle)) - (sHeight * cos(angle)));
 
-  sf::CircleShape shape;
-  shape.setFillColor(sf::Color::Yellow);
-  shape.setRadius(2.5f);
-  shape.setOrigin(shape.getLocalBounds().width / 2,
-                  shape.getLocalBounds().height / 2);
-
-  shape.setPosition(bottomLeft);
-  pWindow->draw(shape);
-  shape.setPosition(bottomRight);
-  pWindow->draw(shape);
-  shape.setPosition(topLeft);
-  pWindow->draw(shape);
-  shape.setPosition(topRight);
-  pWindow->draw(shape);
+  if (this->doesCollide(topRight) || this->doesCollide(topLeft) ||
+      this->doesCollide(bottomLeft) || this->doesCollide(bottomRight)) {
+    return true;
+  }
+  return false;
 }
 
 // ---- Render ----
-void Map::render(sf::RenderWindow *pWindow) {
+void Map::render(sf::RenderWindow* pWindow) {
   for (unsigned int y = 0; y < this->map.size(); y++) {
     for (unsigned int x = 0; x < this->map[y].size(); x++) {
       this->acutalSquare.setTextureRect(

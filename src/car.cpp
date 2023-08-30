@@ -27,6 +27,12 @@ void Car::baseCarUpdate(Engine *pEngine) {
   // Calculate Radius - Distancia da roda traseira e da roda frontal setada aq
   this->radius = 2.f * tan((90 - wheelRotation) * M_PI / 180);
 
+  // Position
+  this->hitbox.move(this->velocity * pEngine->getDeltaTime().asSeconds() *
+                        cos(rotation * M_PI / 180),
+                    this->velocity * pEngine->getDeltaTime().asSeconds() *
+                        sin(rotation * M_PI / 180));
+
   // Calcular a velocidade algunar
   if (radius != 0) this->angularVelocity = this->velocity / radius;
 
@@ -51,13 +57,11 @@ void Car::baseCarUpdate(Engine *pEngine) {
   this->lWheel.setRotation(this->rotation + this->wheelRotation);
 
   this->hitbox.setRotation(rotation);
-
-  // Position
-  this->hitbox.move(this->velocity * pEngine->getDeltaTime().asSeconds() *
-                        cos(rotation * M_PI / 180),
-                    this->velocity * pEngine->getDeltaTime().asSeconds() *
-                        sin(rotation * M_PI / 180));
 }
+
+void Car::stop(Engine *pEngine) { this->maxVelocity = 50.f; }
+
+void Car::returnToNaturalState() { this->maxVelocity = originalMaxVelocity; }
 
 sf::RectangleShape Car::getRect() { return this->hitbox; }
 
