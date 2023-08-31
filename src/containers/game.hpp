@@ -19,6 +19,8 @@ class Game {
   std::vector<Checkpoint> checkpoints;
   void initMap();
 
+  int maxCheckpoint;
+
   void initCheckpoints(std::string path);
 
  public:
