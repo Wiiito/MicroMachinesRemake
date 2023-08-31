@@ -24,6 +24,9 @@ Car::~Car() {}
 #include <iostream>
 
 void Car::baseCarUpdate(Engine *pEngine) {
+  // Set max velocity
+  this->velocity = std::min(this->velocity, this->maxVelocity);
+
   // Calculate Radius - Distancia da roda traseira e da roda frontal setada aq
   this->radius = 2.f * tan((90 - wheelRotation) * M_PI / 180);
 

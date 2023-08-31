@@ -6,6 +6,25 @@
 #include "engine.hpp"
 #include "map.hpp"
 
+struct Checkpoint {
+  sf::RectangleShape hitbox;
+  int checkpointNumber;
+
+  sf::Vector2f operator+(Checkpoint anotherCheckpoint) {
+    return this->hitbox.getPosition() - anotherCheckpoint.hitbox.getPosition();
+  };
+  sf::Vector2f operator-(Checkpoint anotherCheckpoint) {
+    return this->hitbox.getPosition() - anotherCheckpoint.hitbox.getPosition();
+  };
+
+  sf::Vector2f operator+(sf::Vector2f pos) {
+    return this->hitbox.getPosition() - pos;
+  };
+  sf::Vector2f operator-(sf::Vector2f pos) {
+    return this->hitbox.getPosition() - pos;
+  };
+};
+
 class Car {
  protected:
   sf::RectangleShape hitbox;

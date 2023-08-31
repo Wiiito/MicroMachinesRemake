@@ -40,6 +40,8 @@ void Game::initCheckpoints(std::string path) {
     this->checkpoints.push_back(check);
   }
 
+  bot.pushCheckpoint(this->checkpoints);
+
   checks.close();
 }
 
@@ -53,9 +55,8 @@ void Game::initMap() {
 }
 
 void Game::update(Engine *gameEngine) {
-  player.baseCarUpdate(gameEngine);
   player.update(gameEngine);
-  player.returnToNaturalState();
+  bot.update(gameEngine);
 
   if (map.intersects(player.getRect())) {
     player.stop(gameEngine);
@@ -77,6 +78,21 @@ void Game::update(Engine *gameEngine) {
       }
     }
   }
+  for (auto i : this->checkpoints) {
+    if (bot.getRect().getGlobalBounds().intersects(
+            i.hitbox.getGlobalBounds())) {
+      if (i.checkpointNumber > bot.currentCheckpoint) {  // Checkpoint check
+        bot.currentCheckpoint = i.checkpointNumber;
+        break;
+      }
+
+      if (i.checkpointNumber == 0 &&
+          bot.currentCheckpoint == this->maxCheckpoint) {  // Lap check
+        bot.currentLap = bot.currentLap + 1;
+        bot.currentCheckpoint = i.checkpointNumber;
+      }
+    }
+  }
 }
 
 void Game::render(sf::RenderWindow *pWindow) {
@@ -85,4 +101,5 @@ void Game::render(sf::RenderWindow *pWindow) {
 
   map.render(pWindow);
   player.render(pWindow);
+  bot.render(pWindow);
 }

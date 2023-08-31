@@ -1,18 +1,15 @@
 #include <SFML/Graphics.hpp>
 #include <sstream>
 
+#include "../headers/bot.hpp"
 #include "../headers/engine.hpp"
 #include "../headers/map.hpp"
 #include "../headers/player.hpp"
 
-struct Checkpoint {
-  sf::RectangleShape hitbox;
-  int checkpointNumber;
-};
-
 class Game {
  private:
   Player player;
+  Bot bot;
   Map map;
 
   // Checkpoints related

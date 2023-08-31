@@ -1,6 +1,8 @@
 #include "headers/player.hpp"
 
 void Player::update(Engine *pEngine) {
+  this->baseCarUpdate(pEngine);
+
   // Wheel turn
   if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
     this->wheelRotation =
@@ -39,4 +41,6 @@ void Player::update(Engine *pEngine) {
                      this->acceleration * pEngine->getDeltaTime().asSeconds(),
                  0.f);
   }
+
+  this->returnToNaturalState();
 }
