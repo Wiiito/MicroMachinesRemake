@@ -4,13 +4,15 @@ Bot::Bot() {}
 
 Bot::~Bot() {}
 
-void Bot::pushCheckpoint(std::vector<Checkpoint> checkpoints) {
-  for (auto check : checkpoints) {
+#include <iostream>
+
+void Bot::pushCheckpoint(std::vector<Checkpoint> &checkpoints) {
+  for (Checkpoint &check : checkpoints) {
     this->checkpoints.push_back(check);
   }
 }
 
-void Bot::pushCheckpoint(Checkpoint checkpoint) {
+void Bot::pushCheckpoint(Checkpoint &checkpoint) {
   this->checkpoints.push_back(checkpoint);
 }
 

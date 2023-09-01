@@ -22,7 +22,6 @@ void Map::updateMap() {
     }
     counter++;
   }
-  this->mapFile.close();
 }
 
 // ---- Set functions ----
@@ -30,7 +29,11 @@ void Map::setTileSet(std::string path) {
   this->tileTexture.loadFromFile(path);
   acutalSquare.setTexture(&this->tileTexture);
 }
-void Map::setMap(std::string path) { this->mapFile.open(path); }
+void Map::setMap(std::string path) {
+  this->mapFile.open(path);
+  this->updateMap();
+  this->mapFile.close();
+}
 void Map::setOffestSize(int size) {
   this->offsetSize = size;
   this->acutalSquare.setSize(sf::Vector2f(size, size));
@@ -44,7 +47,7 @@ bool Map::doesCollide(sf::Vector2f pos) {
 
 bool Map::doesCollide(int x, int y) {
   // std::cout << this->map[y / this->offsetSize][x / this->offsetSize];
-  if (y / this->offsetSize > map.size() || y < 0 ||
+  if (y / this->offsetSize > map.size() - 1 || y < 0 ||
       x / this->offsetSize > map[y / this->offsetSize].size() || x < 0) {
     return true;
   }

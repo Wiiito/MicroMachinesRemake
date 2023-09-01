@@ -49,7 +49,6 @@ void Game::initMap() {
   this->map.setTileSet("assets/imgs/map.png");
   this->map.setMap("assets/map.txt");
   this->map.setOffestSize(32);
-  this->map.updateMap();
 
   this->initCheckpoints("assets/level1Checkpoints.csv");
 }

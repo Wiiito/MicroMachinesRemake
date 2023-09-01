@@ -11,8 +11,8 @@ class Bot : public Car {
   Bot();
   ~Bot();
 
-  void pushCheckpoint(std::vector<Checkpoint> checkpoints);
-  void pushCheckpoint(Checkpoint checkpoint);
+  void pushCheckpoint(std::vector<Checkpoint> &checkpoints);
+  void pushCheckpoint(Checkpoint &checkpoint);
 
   void update(Engine *pEngine);
 };
