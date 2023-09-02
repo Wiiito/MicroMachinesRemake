@@ -10,8 +10,13 @@ Map::Map(std::string mapPath, std::string tileSetPath) {
 
 Map::~Map() {}
 
-#include <iostream>
-
+// Essa função é privada pra evitar tentar ler arquivo q ñ ta aberto :v
+/**
+ * Read mapFile to push each number to a matrix of numbers that represent the
+ * map
+ * @return void
+ * @private
+ */
 void Map::updateMap() {
   std::string string;
   int counter = 0;
@@ -25,26 +30,60 @@ void Map::updateMap() {
 }
 
 // ---- Set functions ----
+
+/**
+ * Set map texture
+ * @param std::string string to texture from .exe location
+ * @return void
+ * @public
+ */
 void Map::setTileSet(std::string path) {
   this->tileTexture.loadFromFile(path);
   acutalSquare.setTexture(&this->tileTexture);
 }
+
+/**
+ * Set the actual map path
+ * @param std::string string to map from .exe location
+ * @return void
+ * @public
+ */
 void Map::setMap(std::string path) {
   this->mapFile.open(path);
   this->updateMap();
   this->mapFile.close();
 }
+
+/**
+ * Set tileSet Size
+ * @param int number that each square should be
+ * @return void
+ * @public
+ */
 void Map::setOffestSize(int size) {
   this->offsetSize = size;
   this->acutalSquare.setSize(sf::Vector2f(size, size));
 }
 
-#include <iostream>
 // ---- Collision detection ----
+
+/**
+ * Checks if a point is colliding on a wall of the map
+ * @public
+ * @param sf::Vector2f absolute position on game
+ * @return bool, true if collides or out of borders
+ */
 bool Map::doesCollide(sf::Vector2f pos) {
   return this->doesCollide((int)pos.x, (int)pos.y);
 }
 
+/**
+ * Checks if a point is colliding on a wall of the map
+ * @public
+ * @param int X absolute position on map
+ * @param int Y absolute position on map
+ * @return bool, true if collides or out of borders
+ */
 bool Map::doesCollide(int x, int y) {
   // std::cout << this->map[y / this->offsetSize][x / this->offsetSize];
   if (y / this->offsetSize > map.size() - 1 || y < 0 ||
@@ -58,6 +97,12 @@ bool Map::doesCollide(int x, int y) {
   return false;
 }
 
+/**
+ * Checks if a sf::RectangleShape collides with any wall on the map
+ * @public
+ * @param sf::RectangleShale rect to be checked
+ * @return bool, true if collides
+ */
 bool Map::intersects(sf::RectangleShape rect) {
   // Essa brincadeira td aq pq a função da lib é inutil :)
   float angle = rect.getRotation() * M_PI / 180;
@@ -93,7 +138,12 @@ bool Map::intersects(sf::RectangleShape rect) {
   return false;
 }
 
-// ---- Render ----
+/**
+ * Renders the map on screen
+ * @public
+ * @param sf::RenderWindow* pointer to window that will recive the map
+ * @return void
+ */
 void Map::render(sf::RenderWindow* pWindow) {
   for (unsigned int y = 0; y < this->map.size(); y++) {
     for (unsigned int x = 0; x < this->map[y].size(); x++) {

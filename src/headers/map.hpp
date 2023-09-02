@@ -17,6 +17,8 @@ class Map {
 
   std::vector<std::vector<int>> map;
 
+  void updateMap();
+
  public:
   Map();
   Map(std::string mapPath, std::string tileSetPath);
@@ -32,6 +34,5 @@ class Map {
 
   bool intersects(sf::RectangleShape rect);
 
-  void updateMap();
   void render(sf::RenderWindow *pWindow);
 };

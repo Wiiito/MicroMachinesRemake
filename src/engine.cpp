@@ -61,7 +61,7 @@ void Engine::updateGame() {
   this->deltaTimeClock.restart();
 
   this->poolEvents();
-  this->pWindow->clear();
+  this->pWindow->clear(sf::Color(53, 151, 85));
   this->currentScene->run();
   this->pWindow->display();
 }
@@ -106,7 +106,7 @@ Engine::~Engine() {
  * - Puts its adress into a hashMap, so can be calledlater by its name
  *
  * @returns void
- * @param cena Scene address to be added to collection
+ * @param Scene Scene address to be added to collection
  * @public
  */
 void Engine::pushScene(Scene* cena) {
@@ -117,7 +117,7 @@ void Engine::pushScene(Scene* cena) {
  * Sets current scene
  *
  * @returns void
- * @param name Scene name to be set to current scene
+ * @param std::string Scene name to be set to current scene
  * @public
  */
 void Engine::setCurrentScene(std::string name) {

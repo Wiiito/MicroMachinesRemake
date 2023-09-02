@@ -53,7 +53,7 @@ void Game::update(Engine *gameEngine) {
   bot.update(gameEngine);
 
   if (map.intersects(player.getRect())) {
-    player.stop(gameEngine);
+    player.stop();
   }
 
   // Checkpoints checks / Laps Check

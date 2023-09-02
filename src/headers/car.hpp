@@ -26,6 +26,10 @@ struct Checkpoint {
 };
 
 class Car {
+ private:
+  void logicUpdate(Engine *pEngine);
+  void wheelsUpdate();
+
  protected:
   sf::RectangleShape hitbox;
   sf::RectangleShape lWheel;
@@ -51,6 +55,9 @@ class Car {
   const float originalMaxVelocity = 500.f;
   float maxVelocity = originalMaxVelocity;
 
+  void baseCarUpdate(Engine *pEngine);
+  void returnToNaturalState();
+
  public:
   // Race things - They are public cuz every car has one n' it's kinda pointless
   // making them private
@@ -61,11 +68,9 @@ class Car {
   Car();
   ~Car();
 
-  void baseCarUpdate(Engine *pEngine);
   void render(sf::RenderWindow *pWindow);
 
-  void stop(Engine *pEngine);
-  void returnToNaturalState();
+  void stop();
 
   sf::RectangleShape getRect();
 

@@ -1,5 +1,11 @@
 #include "headers/player.hpp"
 
+/**
+ * Handle's user input
+ * @public
+ * @param Engine* pointer to engine
+ * @return void
+ */
 void Player::update(Engine *pEngine) {
   this->baseCarUpdate(pEngine);
 
@@ -24,7 +30,7 @@ void Player::update(Engine *pEngine) {
         std::min(this->velocity +
                      this->acceleration * pEngine->getDeltaTime().asSeconds(),
                  this->maxVelocity);
-  } else if (velocity > 0) {  // 🤢
+  } else if (velocity > 0) {
     this->velocity =
         std::max(this->velocity - this->slowAcceleration *
                                       pEngine->getDeltaTime().asSeconds(),
@@ -35,7 +41,7 @@ void Player::update(Engine *pEngine) {
   if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
     this->velocity = this->velocity - this->breakAcceleration *
                                           pEngine->getDeltaTime().asSeconds();
-  } else if (velocity < 0) {  // 🤢
+  } else if (velocity < 0) {
     this->velocity =
         std::min(this->velocity +
                      this->acceleration * pEngine->getDeltaTime().asSeconds(),
