@@ -13,7 +13,7 @@ class Game {
   Map map;
 
   // Checkpoints related
-  std::vector<Checkpoint> checkpoints;
+  std::vector<sf::RectangleShape *> checkpoints;
   void initMap();
 
   int maxCheckpoint;

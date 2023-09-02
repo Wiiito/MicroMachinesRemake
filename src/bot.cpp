@@ -1,19 +1,17 @@
 #include "headers/bot.hpp"
 
-Bot::Bot() {}
+Bot::Bot() { this->currentCheckpoint = -1; }
 
 Bot::~Bot() {}
 
-#include <iostream>
-
-void Bot::pushCheckpoint(std::vector<Checkpoint> &checkpoints) {
-  for (Checkpoint &check : checkpoints) {
-    this->checkpoints.push_back(check);
+void Bot::pushWaypoint(std::vector<sf::Vector2f> waypoint) {
+  for (sf::Vector2f &check : waypoint) {
+    this->waypoints.push_back(check);
   }
 }
 
-void Bot::pushCheckpoint(Checkpoint &checkpoint) {
-  this->checkpoints.push_back(checkpoint);
+void Bot::pushWaypoint(sf::Vector2f waypoint) {
+  this->waypoints.push_back(waypoint);
 }
 
 void Bot::update(Engine *pEngine) {
@@ -21,11 +19,10 @@ void Bot::update(Engine *pEngine) {
 
   sf::Vector2f nextCheckpoint;
 
-  if (this->currentCheckpoint < this->checkpoints.size() - 1) {
-    nextCheckpoint = sf::Vector2f(
-        this->checkpoints[this->currentCheckpoint + 1].hitbox.getPosition());
+  if (this->currentCheckpoint < this->waypoints.size() - 1) {
+    nextCheckpoint = sf::Vector2f(this->waypoints[this->currentCheckpoint + 1]);
   } else {
-    nextCheckpoint = sf::Vector2f(this->checkpoints[0].hitbox.getPosition());
+    nextCheckpoint = sf::Vector2f(this->waypoints[0]);
   }
 
   sf::Vector2f triangleSize(nextCheckpoint - this->getPosition());

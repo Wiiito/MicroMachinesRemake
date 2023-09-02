@@ -5,14 +5,14 @@
 
 class Bot : public Car {
  private:
-  std::vector<Checkpoint> checkpoints;
+  std::vector<sf::Vector2f> waypoints;
 
  public:
   Bot();
   ~Bot();
 
-  void pushCheckpoint(std::vector<Checkpoint> &checkpoints);
-  void pushCheckpoint(Checkpoint &checkpoint);
+  void pushWaypoint(std::vector<sf::Vector2f> waypoint);
+  void pushWaypoint(sf::Vector2f waypoint);
 
   void update(Engine *pEngine);
 };

@@ -8,5 +8,6 @@
 class Player : public Car {
  private:
  public:
+  Player() : Car() { this->hitbox.setPosition(200, 200); }
   void update(Engine *pEngine);
 };

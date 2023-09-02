@@ -10,9 +10,11 @@ void Game::initCheckpoints(std::string path) {
   std::ifstream checks(path);
   std::string line;
 
+  int counter = 0;
+
   getline(checks, line);
   while (getline(checks, line)) {
-    sf::RectangleShape shape;
+    sf::RectangleShape *shape = new sf::RectangleShape;
     std::stringstream ss(line);
     std::string value;
 
@@ -20,37 +22,30 @@ void Game::initCheckpoints(std::string path) {
     int xPos = atoi(value.c_str());
     getline(ss, value, ',');
     int yPos = atoi(value.c_str());
-    shape.setPosition(sf::Vector2f(xPos, yPos));
+    shape->setPosition(sf::Vector2f(xPos, yPos));
 
     getline(ss, value, ',');
     int width = atoi(value.c_str());
     getline(ss, value, ',');
     int height = atoi(value.c_str());
-    shape.setSize(sf::Vector2f(width, height));
-
-    Checkpoint check;
-    check.hitbox = shape;
-
-    getline(ss, value, ',');
-    int counter = atoi(value.c_str());
-    check.checkpointNumber = counter;
+    shape->setSize(sf::Vector2f(width, height));
 
     this->maxCheckpoint = counter;
+    counter++;
 
-    this->checkpoints.push_back(check);
+    this->checkpoints.push_back(shape);
+    bot.pushWaypoint(shape->getPosition());
   }
-
-  bot.pushCheckpoint(this->checkpoints);
 
   checks.close();
 }
 
 void Game::initMap() {
-  this->map.setTileSet("assets/imgs/map.png");
-  this->map.setMap("assets/map.txt");
+  this->map.setTileSet("assets/imgs/texture.png");
+  this->map.setMap("assets/level1/map.txt");
   this->map.setOffestSize(32);
 
-  this->initCheckpoints("assets/level1Checkpoints.csv");
+  this->initCheckpoints("assets/level1/checkpoints.csv");
 }
 
 void Game::update(Engine *gameEngine) {
@@ -62,33 +57,33 @@ void Game::update(Engine *gameEngine) {
   }
 
   // Checkpoints checks / Laps Check
-  for (auto i : this->checkpoints) {
+  for (int i = 0; i < this->checkpoints.size(); i++) {
     if (player.getRect().getGlobalBounds().intersects(
-            i.hitbox.getGlobalBounds())) {
-      if (i.checkpointNumber > player.currentCheckpoint) {  // Checkpoint check
-        player.currentCheckpoint = i.checkpointNumber;
+            this->checkpoints[i]->getGlobalBounds())) {
+      if (i > player.currentCheckpoint) {  // Checkpoint check
+        player.currentCheckpoint = i;
         break;
       }
 
-      if (i.checkpointNumber == 0 &&
+      if (i == 0 &&
           player.currentCheckpoint == this->maxCheckpoint) {  // Lap check
         player.currentLap = player.currentLap + 1;
-        player.currentCheckpoint = i.checkpointNumber;
+        player.currentCheckpoint = i;
       }
     }
   }
-  for (auto i : this->checkpoints) {
+  for (int i = 0; i < this->checkpoints.size(); i++) {
     if (bot.getRect().getGlobalBounds().intersects(
-            i.hitbox.getGlobalBounds())) {
-      if (i.checkpointNumber > bot.currentCheckpoint) {  // Checkpoint check
-        bot.currentCheckpoint = i.checkpointNumber;
+            this->checkpoints[i]->getGlobalBounds())) {
+      if (i > bot.currentCheckpoint) {  // Checkpoint check
+        bot.currentCheckpoint = i;
         break;
       }
 
-      if (i.checkpointNumber == 0 &&
+      if (i == 0 &&
           bot.currentCheckpoint == this->maxCheckpoint) {  // Lap check
         bot.currentLap = bot.currentLap + 1;
-        bot.currentCheckpoint = i.checkpointNumber;
+        bot.currentCheckpoint = i;
       }
     }
   }

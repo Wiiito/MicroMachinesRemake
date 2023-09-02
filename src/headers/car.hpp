@@ -8,7 +8,7 @@
 
 struct Checkpoint {
   sf::RectangleShape hitbox;
-  int checkpointNumber;
+  int checkpointNumber = 0;
 
   sf::Vector2f operator+(Checkpoint anotherCheckpoint) {
     return this->hitbox.getPosition() - anotherCheckpoint.hitbox.getPosition();
