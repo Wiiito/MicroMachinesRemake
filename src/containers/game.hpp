@@ -1,3 +1,4 @@
+#include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include <sstream>
 
@@ -5,6 +6,7 @@
 #include "../headers/engine.hpp"
 #include "../headers/map.hpp"
 #include "../headers/player.hpp"
+#include "../headers/sound.hpp"
 
 class Game {
  private:
@@ -19,6 +21,8 @@ class Game {
   int maxCheckpoint;
 
   void initCheckpoints(std::string path);
+
+  sf::Music menuMusic;
 
  public:
   Game();

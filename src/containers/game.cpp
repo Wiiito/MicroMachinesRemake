@@ -1,7 +1,5 @@
 #include "game.hpp"
 
-#include <iostream>
-
 Game::Game() { this->initMap(); }
 
 Game::~Game() {}

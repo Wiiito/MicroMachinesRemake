@@ -10,15 +10,22 @@ int SoundControler::effectsVolume = 50;
 int SoundControler::musicVolume = 50;
 int SoundControler::globalVolume = 50;
 
+sf::Music SoundControler::menuMusic;
+
 int main() {
   Engine gameEngine;
 
   sf::RenderWindow *pWindow = gameEngine.getWindow();
 
+  SoundControler::initGlobalMusic();
+
   // ---- Creating gameScene ----
   Game *game = new Game;
   Scene gameScene("game");
-  gameScene.setInstanceFunction([&game]() -> void { game = new Game; });
+  gameScene.setInstanceFunction([&game]() -> void {
+    delete (&game);
+    game = new Game;
+  });
   gameScene.add([game, pWindow, &gameEngine]() -> void {
     game->update(&gameEngine);
     game->render(pWindow);
@@ -28,8 +35,10 @@ int main() {
   // ---- Creating menuScene ----
   Menu *menu = new Menu(&gameEngine);
   Scene menuScene("menu");
-  menuScene.setInstanceFunction(
-      [&menu, &gameEngine]() -> void { menu = new Menu(&gameEngine); });
+  menuScene.setInstanceFunction([&menu, &gameEngine]() -> void {
+    delete (&menu);
+    menu = new Menu(&gameEngine);
+  });
   menuScene.add([menu, pWindow, &gameEngine]() -> void {
     menu->update(&gameEngine);
     menu->render(pWindow);
@@ -40,6 +49,7 @@ int main() {
   Settings *settings = new Settings(&gameEngine);
   Scene settingsScene("settings");
   settingsScene.setInstanceFunction([&settings, &gameEngine]() -> void {
+    delete (&settings);
     settings = new Settings(&gameEngine);
   });
   settingsScene.add([settings, pWindow, &gameEngine]() -> void {
