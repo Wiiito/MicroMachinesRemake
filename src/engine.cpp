@@ -121,6 +121,7 @@ void Engine::pushScene(Scene* cena) {
  * @public
  */
 void Engine::setCurrentScene(std::string name) {
+  delete (&currentScene);
   currentScene = scenesMap[name];
   currentScene->instantiate();
 }

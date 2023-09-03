@@ -35,7 +35,7 @@ Menu::Menu(Engine *gameEngine) {
   this->settingsButton.setPosition(sf::Vector2f(265.f, 535.f));
   this->settingsButton.setText(settingsText);
   this->settingsButton.setCallbackFunction(
-      [gameEngine]() -> void { gameEngine->setCurrentScene("game"); });
+      [gameEngine]() -> void { gameEngine->setCurrentScene("settings"); });
   this->settingsButton.setColorOnHover(TEXT, sf::Color::Yellow);
 
   settingsText.setFillColor(sf::Color::Black);
