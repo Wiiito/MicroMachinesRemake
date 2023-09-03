@@ -7,6 +7,7 @@
 
 class Player : public Car {
  private:
+
  public:
   Player() : Car("assets/cars/YellowBlock.png") {
     this->hitbox.setPosition(sf::Vector2f(350, 800));
