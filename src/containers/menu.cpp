@@ -22,6 +22,8 @@ Menu::Menu(Engine *gameEngine) {
   this->startButton.setCallbackFunction(
       [gameEngine]() -> void { gameEngine->setCurrentScene("game"); });
   this->startButton.setColorOnHover(TEXT, sf::Color::Yellow);
+  this->startButton.setHoverSound("assets/sounds/hoverSound.wav");
+  this->startButton.setClickSound("assets/sounds/clickSound.wav");
 
   startText.setFillColor(sf::Color::Black);
   startText.setPosition(sf::Vector2f(80.f, 405.f));
@@ -37,6 +39,8 @@ Menu::Menu(Engine *gameEngine) {
   this->settingsButton.setCallbackFunction(
       [gameEngine]() -> void { gameEngine->setCurrentScene("settings"); });
   this->settingsButton.setColorOnHover(TEXT, sf::Color::Yellow);
+  this->settingsButton.setHoverSound("assets/sounds/hoverSound.wav");
+  this->settingsButton.setClickSound("assets/sounds/clickSound.wav");
 
   settingsText.setFillColor(sf::Color::Black);
   settingsText.setPosition(sf::Vector2f(80.f, 495.f));
@@ -52,6 +56,8 @@ Menu::Menu(Engine *gameEngine) {
   this->quitButton.setCallbackFunction(
       [gameEngine]() -> void { gameEngine->getWindow()->close(); });
   this->quitButton.setColorOnHover(TEXT, sf::Color::Yellow);
+  this->quitButton.setHoverSound("assets/sounds/hoverSound.wav");
+  this->quitButton.setClickSound("assets/sounds/clickSound.wav");
 
   quitText.setFillColor(sf::Color::Black);
   quitText.setPosition(sf::Vector2f(80.f, 585.f));

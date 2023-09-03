@@ -24,7 +24,7 @@ Button::Button(Vector2f size, Text text, function<void()> callBack,
 Button::~Button() {}
 
 // Functions
-
+#include <iostream>
 /**
  * Draws button on window
  * @param pWindow Window's pointer that the button will be draw
@@ -47,14 +47,16 @@ void Button::render(RenderWindow *pWindow) {
     }
 
     if (!mouseEntered) {
+      this->hoverSound.setVolume(SoundControler::getFormatedEffectsVolume());
       this->hoverSound.play();
     }
 
     mouseEntered = true;
 
     if (Mouse::isButtonPressed(Mouse::Left)) {
-      this->callBack();
+      this->clickSound.setVolume(SoundControler::getFormatedEffectsVolume());
       clickSound.play();
+      this->callBack();
     }
   } else {
     mouseEntered = false;
@@ -196,7 +198,7 @@ void Button::setColorOnHover(btnElement elem, sf::Color newColor) {
 void Button::setOrigin(Vector2f originPos) {}
 
 // Sound related
-
+#include <iostream>
 /**
  * Adds a sound that will be played on hover
  * @public
