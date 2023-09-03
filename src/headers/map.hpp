@@ -34,5 +34,7 @@ class Map {
 
   bool intersects(sf::RectangleShape rect);
 
+  sf::Vector2f getSize();
+
   void render(sf::RenderWindow *pWindow);
 };

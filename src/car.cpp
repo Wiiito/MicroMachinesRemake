@@ -1,18 +1,21 @@
 #include "headers/car.hpp"
 
-Car::Car() {
+Car::Car(std::string texturePath) {
   // Hitbox do carrinho
   this->hitbox.setSize(sf::Vector2f(85, 60));
   this->hitbox.setPosition(sf::Vector2f(0.f, 0.f));
   this->hitbox.setOrigin(sf::Vector2f(30.f, 30.f));
+
+  this->carTexture.loadFromFile(texturePath);
+  this->hitbox.setTexture(&carTexture);
 
   // LeftWheel do carrinho
   this->lWheel.setFillColor(sf::Color::Black);
   this->rWheel.setFillColor(sf::Color::Black);
   this->lWheel.setSize(sf::Vector2f(15, 10));
   this->rWheel.setSize(sf::Vector2f(15, 10));
-  this->lWheel.setOrigin(sf::Vector2f(10, 5));
-  this->rWheel.setOrigin(sf::Vector2f(10, 5));
+  this->lWheel.setOrigin(sf::Vector2f(7.5f, 5));
+  this->rWheel.setOrigin(sf::Vector2f(7.5f, 5));
 }
 
 Car::~Car() {}
@@ -56,12 +59,12 @@ void Car::wheelsUpdate() {
   float YOffsetDis = sin((this->rotation - 90) * M_PI / 180);
 
   this->rWheel.setPosition(
-      this->getPosition().x + xDis * 35.f + xOffsetDis * 30.f,
-      this->getPosition().y + yDis * 35.f + YOffsetDis * 30.f);
+      this->getPosition().x + xDis * 35.f + xOffsetDis * 22.f,
+      this->getPosition().y + yDis * 35.f + YOffsetDis * 22.f);
 
   this->lWheel.setPosition(
-      this->getPosition().x + xDis * 35.f - xOffsetDis * 30.f,
-      this->getPosition().y + yDis * 35.f - YOffsetDis * 30.f);
+      this->getPosition().x + xDis * 35.f - xOffsetDis * 22.f,
+      this->getPosition().y + yDis * 35.f - YOffsetDis * 22.f);
 
   this->rWheel.setRotation(this->rotation + this->wheelRotation);
   this->lWheel.setRotation(this->rotation + this->wheelRotation);

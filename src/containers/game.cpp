@@ -90,8 +90,16 @@ void Game::update(Engine *gameEngine) {
 }
 
 void Game::render(sf::RenderWindow *pWindow) {
-  pWindow->setView(
-      sf::View(player.getCenterPosition(), sf::Vector2f(pWindow->getSize())));
+  sf::Vector2f cameraPos;
+  cameraPos.x = std::max(
+      std::min(player.getCenterPosition().x,
+               (this->map.getSize().x * 32) - pWindow->getSize().x / 2),
+      (float)pWindow->getSize().x / 2);
+  cameraPos.y = std::max(
+      std::min(player.getCenterPosition().y,
+               (this->map.getSize().y * 32) - pWindow->getSize().y / 2),
+      (float)pWindow->getSize().y / 2);
+  pWindow->setView(sf::View(cameraPos, sf::Vector2f(pWindow->getSize())));
 
   map.render(pWindow);
   player.render(pWindow);

@@ -26,16 +26,20 @@ void Player::update(Engine *pEngine) {
 
   // Acceleration
   if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
-    this->velocity =
-        std::min(this->velocity +
-                     this->acceleration * pEngine->getDeltaTime().asSeconds(),
-                 this->maxVelocity);
+    this->velocity = this->velocity +
+                     this->acceleration * pEngine->getDeltaTime().asSeconds();
+
   } else if (velocity > 0) {
     this->velocity =
         std::max(this->velocity - this->slowAcceleration *
                                       pEngine->getDeltaTime().asSeconds(),
                  0.f);
   }
+
+  // Sim, eu sei que se o usuario começar a
+  // correr de costar ele não tem limite de
+  // velicidade, mas achei uma interação legal
+  // então deixei :)
 
   // Break
   if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {

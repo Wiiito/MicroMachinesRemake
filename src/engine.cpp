@@ -61,7 +61,7 @@ void Engine::updateGame() {
   this->deltaTimeClock.restart();
 
   this->poolEvents();
-  this->pWindow->clear(sf::Color(53, 151, 85));
+  this->pWindow->clear();
   this->currentScene->run();
   this->pWindow->display();
 }

@@ -65,6 +65,11 @@ void Map::setOffestSize(int size) {
   this->acutalSquare.setSize(sf::Vector2f(size, size));
 }
 
+// ---- Get ----
+sf::Vector2f Map::getSize() {
+  return sf::Vector2f(this->map[0].size(), this->map.size() - 1);
+}
+
 // ---- Collision detection ----
 
 /**

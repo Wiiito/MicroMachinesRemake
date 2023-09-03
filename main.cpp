@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "src/containers/game.hpp"
+#include "src/containers/menu.hpp"
 #include "src/headers/engine.hpp"
 
 int main() {
@@ -20,6 +21,19 @@ int main() {
     game->render(pWindow);
   });
   gameEngine.pushScene(&gameScene);
+
+  // ---- Creating menuScene ----
+  Menu *menu = new Menu;
+  Scene menuScene("menu");
+  menuScene.setInstanceFunction([&menu]() -> void {
+    delete (menu);
+    menu = new Menu;
+  });
+  menuScene.add([menu, pWindow, &gameEngine]() -> void {
+    menu->update(&gameEngine);
+    menu->render(pWindow);
+  });
+  gameEngine.pushScene(&menuScene);
 
   gameEngine.setCurrentScene("game");
 

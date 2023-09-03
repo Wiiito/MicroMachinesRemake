@@ -6,40 +6,33 @@
 #include "engine.hpp"
 #include "map.hpp"
 
-struct Checkpoint {
-  sf::RectangleShape hitbox;
-  int checkpointNumber = 0;
-
-  sf::Vector2f operator+(Checkpoint anotherCheckpoint) {
-    return this->hitbox.getPosition() - anotherCheckpoint.hitbox.getPosition();
-  };
-  sf::Vector2f operator-(Checkpoint anotherCheckpoint) {
-    return this->hitbox.getPosition() - anotherCheckpoint.hitbox.getPosition();
-  };
-
-  sf::Vector2f operator+(sf::Vector2f pos) {
-    return this->hitbox.getPosition() - pos;
-  };
-  sf::Vector2f operator-(sf::Vector2f pos) {
-    return this->hitbox.getPosition() - pos;
-  };
-};
-
 class Car {
  private:
+  sf::Texture carTexture;
+
+  // Wheels
+  sf::RectangleShape lWheel;
+  sf::RectangleShape rWheel;
+
+  // Physics
+  float xVelocity;
+  float yVelocity;
+
+  // Rotating
+  float radius;
+
+  // Max velocity
+  const float originalMaxVelocity = 500.f;
+  float maxVelocity = originalMaxVelocity;
+
   void logicUpdate(Engine *pEngine);
   void wheelsUpdate();
 
  protected:
   sf::RectangleShape hitbox;
-  sf::RectangleShape lWheel;
-  sf::RectangleShape rWheel;
 
   float velocity = 0.f;
   float angularVelocity = 0.f;
-
-  float xVelocity;
-  float yVelocity;
 
   float rotation;
   float wheelRotation;
@@ -47,25 +40,19 @@ class Car {
   const float turnVelocity = 45.f;
   const float acceleration = 100.f;
 
-  float radius;
-
   const float slowAcceleration = 50.f;
-  const float breakAcceleration = 35.f;
-
-  const float originalMaxVelocity = 500.f;
-  float maxVelocity = originalMaxVelocity;
+  const float breakAcceleration = 100.f;
 
   void baseCarUpdate(Engine *pEngine);
   void returnToNaturalState();
 
  public:
+  int currentLap = 0;
+  int currentCheckpoint = 0;
   // Race things - They are public cuz every car has one n' it's kinda pointless
   // making them private
 
-  int currentLap = 0;
-  int currentCheckpoint = 0;
-
-  Car();
+  Car(std::string texturePath);
   ~Car();
 
   void render(sf::RenderWindow *pWindow);
