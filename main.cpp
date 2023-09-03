@@ -3,6 +3,11 @@
 #include "src/containers/game.hpp"
 #include "src/containers/menu.hpp"
 #include "src/headers/engine.hpp"
+#include "src/headers/sound.hpp"
+
+int SoundControler::effectsVolume = 50;
+int SoundControler::musicVolume = 50;
+int SoundControler::globalVolume = 50;
 
 int main() {
   Engine gameEngine;
@@ -23,11 +28,11 @@ int main() {
   gameEngine.pushScene(&gameScene);
 
   // ---- Creating menuScene ----
-  Menu *menu = new Menu;
+  Menu *menu = new Menu(&gameEngine);
   Scene menuScene("menu");
-  menuScene.setInstanceFunction([&menu]() -> void {
+  menuScene.setInstanceFunction([&menu, &gameEngine]() -> void {
     delete (menu);
-    menu = new Menu;
+    menu = new Menu(&gameEngine);
   });
   menuScene.add([menu, pWindow, &gameEngine]() -> void {
     menu->update(&gameEngine);
@@ -35,7 +40,20 @@ int main() {
   });
   gameEngine.pushScene(&menuScene);
 
-  gameEngine.setCurrentScene("game");
+  // ---- Creating settingsScene ----
+  Menu *menu = new Menu(&gameEngine);
+  Scene menuScene("menu");
+  menuScene.setInstanceFunction([&menu, &gameEngine]() -> void {
+    delete (menu);
+    menu = new Menu(&gameEngine);
+  });
+  menuScene.add([menu, pWindow, &gameEngine]() -> void {
+    menu->update(&gameEngine);
+    menu->render(pWindow);
+  });
+  gameEngine.pushScene(&menuScene);
+
+  gameEngine.setCurrentScene("menu");
 
   while (gameEngine.getIsWindowOpen()) {
     gameEngine.updateGame();
