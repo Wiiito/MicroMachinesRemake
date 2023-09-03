@@ -3,7 +3,7 @@
 Bot::Bot() : Car("assets/cars/YellowBlock.png") {
   this->currentCheckpoint = -1;
   this->rotation = -90;
-  this->hitbox.setPosition(sf::Vector2f(350, 800));
+  this->hitbox.setPosition(sf::Vector2f(400, 800));
 }
 
 Bot::~Bot() {}
