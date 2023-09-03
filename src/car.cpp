@@ -16,6 +16,9 @@ Car::Car(std::string texturePath) {
   this->rWheel.setSize(sf::Vector2f(15, 10));
   this->lWheel.setOrigin(sf::Vector2f(7.5f, 5));
   this->rWheel.setOrigin(sf::Vector2f(7.5f, 5));
+
+  this->currentCheckpoint = 0;
+  this->currentLap = 0;
 }
 
 Car::~Car() {}

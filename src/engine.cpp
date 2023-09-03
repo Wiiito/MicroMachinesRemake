@@ -121,6 +121,10 @@ void Engine::pushScene(Scene* cena) {
  * @public
  */
 void Engine::setCurrentScene(std::string name) {
+  this->pWindow->setView(sf::View(
+      sf::Vector2f(this->pWindow->getSize().x / 2,
+                   this->pWindow->getSize().y / 2),
+      sf::Vector2f(this->pWindow->getSize().x, this->pWindow->getSize().y)));
   delete (&currentScene);
   currentScene = scenesMap[name];
   currentScene->instantiate();

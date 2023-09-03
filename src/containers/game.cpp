@@ -2,7 +2,11 @@
 
 Game::Game() { this->initMap(); }
 
-Game::~Game() {}
+Game::~Game() {
+  for (auto check : this->checkpoints) {
+    delete (check);
+  }
+}
 
 void Game::initCheckpoints(std::string path) {
   std::ifstream checks(path);
@@ -70,6 +74,11 @@ void Game::update(Engine *gameEngine) {
       }
     }
   }
+
+  if (player.currentLap == 3) {
+    gameEngine->setCurrentScene("winScreen");
+  }
+
   for (int i = 0; i < this->checkpoints.size(); i++) {
     if (bot.getRect().getGlobalBounds().intersects(
             this->checkpoints[i]->getGlobalBounds())) {
@@ -84,6 +93,10 @@ void Game::update(Engine *gameEngine) {
         bot.currentCheckpoint = i;
       }
     }
+  }
+
+  if (bot.currentLap == 1) {
+    gameEngine->setCurrentScene("loseScreen");
   }
 }
 
