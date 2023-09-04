@@ -95,7 +95,7 @@ void Game::update(Engine *gameEngine) {
     }
   }
 
-  if (bot.currentLap == 1) {
+  if (bot.currentLap == 3) {
     gameEngine->setCurrentScene("loseScreen");
   }
 }
